@@ -1,0 +1,1 @@
+from subscription.views.template_views.product import ProductListView, ProductDetailView

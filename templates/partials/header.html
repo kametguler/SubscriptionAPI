@@ -1,0 +1,38 @@
+<nav class="fh5co-nav" role="navigation">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3 col-xs-2">
+                <div id="fh5co-logo"><a href="{% url 'home' %}">Kamet Yazılım</a></div>
+            </div>
+            <div class="col-md-6 col-xs-6 text-center menu-1">
+                <ul>
+                    <li>
+                        <a href="{% url 'shop' %}">Ürünler</a>
+                    </li>
+                    <li><a href="#">İletişim</a></li>
+                </ul>
+            </div>
+            <div class="col-md-3 col-xs-4 text-right hidden-xs menu-2">
+                <ul>
+                    {% if request.user.is_authenticated %}
+                        <li class="shopping-cart"><a href="{% url 'account_logout' %}" class="cart"><span><i
+                                class="icon-log-out"></i></span></a></li>
+                        <li class="shopping-cart"><a href="{% url 'profile' %}" class="cart"><span><i
+                                class="icon icon-user"></i></span></a></li>
+                        <li class="shopping-cart"><a href="{% url 'cart-list' %}" class="cart"><span><i
+                                class="icon-shopping-cart"></i></span></a></li>
+                    {% else %}
+                        <li class="has-dropdown">
+                            <a href="#" class="cart">
+                                <i class="icon icon-user"></i></a>
+                            <ul class="dropdown">
+                                <li><a href="{% url 'account_login' %}">Giriş Yap</a></li>
+                                <li><a href="{% url 'account_signup' %}">Kayıt Ol</a></li>
+                            </ul>
+                        </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </div>
+</nav>

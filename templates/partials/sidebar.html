@@ -1,0 +1,33 @@
+{% extends 'layout.html' %}
+{% block content %}
+    <div class="container" style="margin-top: 50px; margin-bottom: 50px;">
+        <div class="row">
+            <!-- Profil sayfası sidebar -->
+            <nav class="col-sm-3 col-md-3 navbar navbar-default" style="border:none; background: white">
+                <div class="container">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                                data-target="#sidebar-collapse" aria-expanded="false">
+                            <i class="icon-menu"></i>
+                        </button>
+                    </div>
+                    <div class="collapse navbar-collapse" id="sidebar-collapse">
+                        <div class="col-sm-3 col-md-3 sidebar profile-sidebar">
+                            <ul class="nav nav-sidebar">
+                                <li><a href="{% url 'account_change_password' %}">Parolayı değiştir</a></li>
+                                <li><a href="{% url 'account_orders' %}">Siparişlerim</a></li>
+                                <li><a href="{% url 'account_subscriptions' %}">Aboneliklerim</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+            <!-- Profil sayfası main content -->
+            <div class="col-sm-9 col-md-9 profile-content" style="padding-left: 50px">
+                {% block profile_body %}
+
+                {% endblock %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

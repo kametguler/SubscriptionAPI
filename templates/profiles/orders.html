@@ -1,0 +1,60 @@
+{% extends 'partials/sidebar.html' %}
+{% block head_title %}Profilim - Siparişlerim{% endblock %}
+{% block profile_body %}
+    <div class="panel panel-warning">
+        <!-- Default panel contents -->
+        <div class="panel-heading">Sipariş Geçmişim</div>
+
+        <!-- Table -->
+        <table class="table">
+            <thead>
+            <tr>
+                <th style="width:60%">Yazılım</th>
+                <th style="width:12%">Fiyatı</th>
+                <th style="width:10%">Başlangıç Tarihi</th>
+                <th style="width:10%">Bitiş Tarihi</th>
+                <th style="">Durumu</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% if orders.count > 0 %}
+                {% for order in orders %}
+                    <tr>
+                        <td data-th="Product">
+                            <div class="row">
+
+                                <div class="col-md-9 text-left mt-sm-2">
+                                    {% for item in order.items.all %}
+                                        <h4>{{ item.product.name }}</h4>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </td>
+                        <td data-th="Price">{{ order.total_amount }} ₺</td>
+                        <td>
+                            {{ order.start_date }}
+                        </td>
+                        <td class="actions">
+                            {{ order.end_date }}
+                        </td>
+                        <td class="actions">
+                            {{ order.get_status_display }}
+                        </td>
+                    </tr>
+                {% endfor %}
+            {% else %}
+                <tr>
+                    <td data-th="Product">
+                        <div class="row">
+                            <div class="col-md-9 text-left mt-sm-2">
+                                <h5>Herhangi bir sipariş geçmişiniz bulunamadı.</h5>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            {% endif %}
+
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

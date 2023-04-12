@@ -1,0 +1,21 @@
+{% load mathfilters %}
+<form method="post" id="form-id">
+    {% csrf_token %}
+    <div class="form-group">
+        {% include 'partials/popup.html' %}
+        <label for="price_type">Fiyat Seçeneği:</label>
+        <select name="price_type" class="form-control">
+            {% if object.discount_rate > 0 %}
+                <option value="price_monthly">Aylık: {{ object.price_monthly|sub:object.discount_rate }}₺</option>
+                <option value="price_6months">6 Aylık: {{ object.price_6months|sub:object.discount_rate }}₺</option>
+                <option value="price_yearly">12 Aylık: {{ object.price_yearly|sub:object.discount_rate }}₺</option>
+            {% else %}
+                <option value="price_monthly">Aylık: {{ object.price_monthly }}₺</option>
+                <option value="price_6months">6 Aylık: {{ object.price_6months }}₺</option>
+                <option value="price_yearly">12 Aylık: {{ object.price_yearly }}₺</option>
+            {% endif %}
+        </select>
+    </div>
+    <button type="submit" id="submit-btn" class="btn btn-primary">Lisans Al</button>
+</form>
+

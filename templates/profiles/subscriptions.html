@@ -1,0 +1,62 @@
+{% extends 'partials/sidebar.html' %}
+{% block head_title %}Profilim - Aktif Aboneliklerim{% endblock %}
+{% block profile_body %}
+    <div class="panel panel-warning">
+        <!-- Default panel contents -->
+        <div class="panel-heading">Aboneliklerim</div>
+
+        <!-- Table -->
+        <table class="table">
+            <thead>
+            <tr>
+                <th style="width:60%">Yazılım</th>
+                <th style="width:10%">Fiyatı</th>
+                <th style="width:10%">Başlangıç Tarihi</th>
+                <th style="width:10%">Bitiş Tarihi</th>
+                <th style="width:10%">Durumu</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% if subscriptions.count > 0 %}
+                {% for subscription in subscriptions %}
+                    <tr>
+                        <td data-th="Product">
+                            <div class="row">
+
+                                <div class="col-md-9 text-left mt-sm-2">
+                                    <h4>{{ subscription.product.name }}</h4>
+                                </div>
+                            </div>
+                        </td>
+                        <td data-th="Price">{{ subscription.price_paid }} ₺</td>
+                        <td>
+                            {{ subscription.start_date }}
+                        </td>
+                        <td class="actions">
+                            {{ subscription.end_date }}
+                        </td>
+                        <td class="actions">
+                            {% if subscription.status %}
+                                Aktif
+                            {% else %}
+                                Aktif Değil
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+            {% else %}
+                <tr>
+                    <td data-th="Product">
+                        <div class="row">
+                            <div class="col-md-9 text-left mt-sm-2">
+                                <h5>Size ait herhangi bir abonelik bulunamadı</h5>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            {% endif %}
+
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

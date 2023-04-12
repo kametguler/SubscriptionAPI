@@ -1,0 +1,15 @@
+{% extends 'partials/sidebar.html' %}
+{% block head_title %}
+    Profilim - Çıkış Yap
+{% endblock %}
+{% load i18n %}
+{% block profile_body %}
+    <form method="post" action="{% url 'account_logout' %}">
+    <h5>Çıkış yapmak istediğine emin misin?</h5>
+        {% csrf_token %}
+        {% if redirect_field_value %}
+            <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}"/>
+        {% endif %}
+        <button type="submit" class="btn btn-primary btn-sm">{% trans 'Sign Out' %}</button>
+    </form>
+{% endblock %}

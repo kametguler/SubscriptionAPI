@@ -1,0 +1,47 @@
+{% extends 'layout.html' %}
+{% block head_title %}
+    Ürünler
+{% endblock %}
+{% load static %}
+{% block content %}
+    <div id="fh5co-product">
+        <div class="container">
+            <div class="row animate-box">
+                <div class="col-md-8 col-md-offset-2 text-center fh5co-heading">
+                    <span>yazılım</span>
+                    <h2>Ürünler.</h2>
+                    <p>Sitemizde, tüm yazılım ürünlerimizi kolayca inceleyebilirsiniz. Her bir ürünün özelliklerini,
+                        avantajlarını ve kullanım alanlarını inceleyebilirsiniz. Ayrıca, müşterilerimiz tarafından
+                        yazılım ürünlerimiz hakkında yapılan yorumları da okuyabilirsiniz.</p>
+                </div>
+            </div>
+            <div class="row">
+                {% if object_list %}
+                    {% for object in object_list %}
+                        <div class="col-md-4 text-center animate-box">
+                            <div class="product">
+                                <div class="product-grid"
+                                     style="background-image:url('{% static 'images/product-1.jpg' %}');">
+                                    <div class="inner">
+                                        <p>
+                                            <a href="{% url 'product-details' object.id %}" class="icon"><i
+                                                    class="icon-eye"></i></a>
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="desc">
+                                    <h3><a href="{% url 'product-details' object.id %}">{{ object.name }}</a></h3>
+                                    <span class="price">Aylık {{ object.price_monthly }} ₺</span>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <h4 class="alert-info"> Şu an da satışta olan herhangi bir yazılım ürünü bulunamadı</h4>
+                {% endif %}
+
+
+            </div>
+        </div>
+    </div>
+{% endblock %}

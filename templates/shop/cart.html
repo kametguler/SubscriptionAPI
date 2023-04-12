@@ -1,0 +1,106 @@
+{% extends 'layout.html' %}
+{% block head_title %}
+    Sepetim
+{% endblock %}
+{% block content %}
+    <input name="csrfmiddlewaretoken" hidden value="{{ csrf_token }}">
+    <section class="pt-5 pb-5">
+        <div class="container" style="margin-top: 100px; margin-bottom: 100px;">
+            <div class="row w-100">
+                <div class="col-lg-12 col-md-12 col-12">
+                    <h3 class="display-5 mb-2 text-center">Sepetim</h3>
+                    <p class="mb-5 text-center">
+                        Sepetinizdeki ürün sayısı: <i class="text-info font-weight-bold">{{ object_list.count }}</i></p>
+                    <table id="shoppingCart" class="table table-condensed table-responsive">
+                        <thead>
+                        <tr>
+                            <th style="width:60%">Ürün</th>
+                            <th style="width:12%">Fiyatı</th>
+                            <th style="width:10%">Adet</th>
+                            <th style="width:16%"></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% if object_list.count > 0 %}
+                            {% for object in object_list %}
+                                <tr>
+                                    <td data-th="Product">
+                                        <div class="row">
+
+                                            <div class="col-md-9 text-left mt-sm-2">
+                                                <h4>{{ object.product.name }}</h4>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td data-th="Price">{{ object.price }} ₺</td>
+                                    <td data-th="Quantity">
+                                        {{ object.quantity }}
+                                    </td>
+                                    <td class="actions" data-th="" onclick="removeCartItem(this)"
+                                        data-product-id="{{ object.product.id }}">
+                                        <div class="text-right">
+                                            <button class="btn btn-white border-secondary bg-white btn-md mb-2">
+                                                <i class="icon-trash"></i>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        {% else %}
+                            <tr>
+                                <td data-th="Product">
+                                    <div class="row">
+
+                                        <div class="col-md-9 text-left mt-sm-2">
+                                            <h4>Sepetinizde ürün bulunmamaktadır.</h4>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        {% endif %}
+
+                        </tbody>
+                    </table>
+                    <div class="float-right text-right">
+                        <h4>Ara Toplam:</h4>
+                        <h4>{{ subtotal }} ₺</h4>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-4 d-flex align-items-center">
+                <div class="col-sm-6 order-md-2 text-right">
+                    <a href="{% url 'shop' %}" class="btn btn-primary mb-4 pl-5 pr-5"><i
+                            class="icon-arrow-left mr-2"></i> Alışverişe devam et </a></a>
+                </div>
+                <div class="col-sm-6 mb-3 mb-m-1 order-md-1 text-md-left">
+                    <a href="{% url 'checkout' %}" class="btn btn-primary ">
+                        <i class="icon-arrow-right mr-2"></i> Ödeme </a>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
+{% block add_js %}
+    <script>
+        function removeCartItem(e) {
+            let product_id = e.getAttribute("data-product-id");
+            var csrfToken = document.getElementsByName('csrfmiddlewaretoken')[0].value;
+            $.ajax({
+                url: '/sepetten-kaldir/' + product_id + '/',
+                method: 'POST',
+                data: {'csrfmiddlewaretoken': csrfToken},
+                success: function (response) {
+                    if (response.status === 'success') {
+                        location.reload()
+                    } else {
+                        alert("Ürün kaldırılırken hata, daha sonra tekrar deneyin.")
+                    }
+                },
+                error: function (response) {
+                    alert("Ürün kaldırılırken hata, daha sonra tekrar deneyin.")
+                }
+            });
+        }
+    </script>
+{% endblock %}
