@@ -6,9 +6,48 @@
     font-style: normal;
 }
 
+.nav-tabs > li > a {
+    border: none;
+    color: #555;
+    font-size: 18px;
+    font-weight: 500;
+    padding: 20px;
+}
+
+.nav-tabs > li > a:hover,
+.nav-tabs > li > a:focus {
+    border: none;
+    background-color: #eee;
+    color: #555;
+    font-size: 18px;
+    font-weight: 500;
+    padding: 20px;
+}
+
+.nav-tabs > li.active > a,
+.nav-tabs > li.active > a:hover,
+.nav-tabs > li.active > a:focus {
+    border: none;
+    background-color: #fff;
+    color: #428bca;
+    font-size: 18px;
+    font-weight: 500;
+    padding: 20px;
+}
+
+.tab-content {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    padding: 20px;
+}
+
+.tab-pane {
+    padding: 15px 0;
+}
+
 /* =======================================================
 *
-* 	Template Style 
+* 	Template Style
 *
 * ======================================================= */
 body {
