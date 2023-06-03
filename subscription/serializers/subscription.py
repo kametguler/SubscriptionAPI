@@ -8,4 +8,4 @@ class SubscriptionSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Subscription
-        fields = ['id', 'user', 'software', 'start_date', 'end_date', 'price_paid', 'status']
+        fields = ['id', 'user', 'software', 'start_date', 'end_date', 'price_paid', 'status', 'session_key']

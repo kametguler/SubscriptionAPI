@@ -8,7 +8,10 @@ from subscription.models import Product, Subscription
 class AddToCartView(View):
     def post(self, request, product_id):
         price_type = request.POST.get('price_type', None)
-
+        if not request.user.is_authenticated:
+            return JsonResponse({
+                "status": "error", "message": "Sepete ürün ekleyebilmek için giriş yapmalısınız."
+            })
         if price_type is not None:
             product = get_object_or_404(Product, pk=product_id)
             if product.discount_rate is not 0:

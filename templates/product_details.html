@@ -128,6 +128,9 @@
                 data: $('#form-id').serialize(),
                 success: function (response) {
                     $('#result-message').text(response.message);
+                    if (response.status == "error"){
+                        $('#result-popup').addClass("alert alert-danger")
+                    }
                     $('#result-popup').addClass("alert alert-" + response.status)
                     $('#result-popup').fadeIn();
                     setTimeout(function () {

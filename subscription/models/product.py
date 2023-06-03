@@ -10,6 +10,7 @@ class Product(models.Model):
     price_6months = models.DecimalField(max_digits=10, decimal_places=2)
     price_yearly = models.DecimalField(max_digits=10, decimal_places=2)
     discount_rate = models.DecimalField(max_digits=4, decimal_places=2, default=0)
+    unique_name = models.CharField(unique=True, blank=True, null=True, max_length=255)
     installation = models.TextField()
     status = models.BooleanField(default=True)
 

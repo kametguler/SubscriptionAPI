@@ -40,8 +40,8 @@ class CheckoutView(View):
             order.status = 'pending'
             order.save()
 
-            # Redirect to home page
-            return redirect('shop')
+            # Redirect to abonelikler list page
+            return redirect('account_orders')
         order_items = order.items.all()
         context = {
             'form': form,

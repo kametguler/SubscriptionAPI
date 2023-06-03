@@ -8,6 +8,7 @@ class Subscription(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     start_date = models.DateField()
     end_date = models.DateField()
+    session_key = models.CharField(max_length=255, blank=True, null=True)
     price_paid = models.DecimalField(max_digits=10, decimal_places=2)
     status = models.BooleanField(default=False)
 

@@ -1,5 +1,4 @@
 import datetime
-
 from django.shortcuts import get_object_or_404
 from rest_framework import generics
 from rest_framework import permissions
@@ -10,7 +9,7 @@ from subscription.models import Subscription
 
 
 class UserSubscriptionDetail(generics.RetrieveUpdateDestroyAPIView):
-    lookup_field = 'product_id'
+    lookup_field = 'unique_name'
     serializer_class = SubscriptionSerializer
     permission_classes = [permissions.IsAuthenticated, IsOwnerOrReadOnly]
 
@@ -18,7 +17,7 @@ class UserSubscriptionDetail(generics.RetrieveUpdateDestroyAPIView):
         return Subscription.objects.filter(user=self.request.user, status=True)
 
     def get_object(self):
-        queryset = self.get_queryset().filter(product_id=self.kwargs[self.lookup_field])
+        queryset = self.get_queryset().filter(product__unique_name=self.kwargs[self.lookup_field])
 
         obj = get_object_or_404(queryset)
 
